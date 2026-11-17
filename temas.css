@@ -1,0 +1,167 @@
+/* After Hours Compendium — a personalidade de cada lugar.
+   Cada categoria muda as variáveis do painel e acrescenta os seus próprios detalhes. */
+
+/* =========================================================
+   MÚSICA — Rádio do Deserto: pôr do sol, capas de discos, vinil a espreitar
+   ========================================================= */
+.tema-musica .painel{
+  --p-bg:#1a0f1f; --p-t:#ffe9d6; --p-a:#ffb35c; --p-m:rgba(255,233,214,.45); --p-l:rgba(255,120,90,.3);
+  --p-card:#24142a; --p-edge:#6b2f4a; --p-frame:#e2522b;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 2px,transparent 2px 6px),
+    linear-gradient(180deg,#2a1230 0%,#1a0f1f 40%);
+}
+.tema-musica .painel h1{
+  font-size:22px;color:transparent;
+  background:linear-gradient(180deg,#ffe08a 0 25%,#ffb35c 25% 45%,#ff7a4a 45% 65%,#e2522b 65% 82%,#9c2f5a 82%);
+  background-size:100% 1.5em;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(3px 3px 0 #0b0610)}
+.tema-musica .painel h2::before{content:"◉ ";color:#e2522b}
+.tema-musica .lista li::before{content:"♪";font-size:16px;top:6px}
+/* discos: capa quadrada com o vinil a sair */
+.tema-musica .grelha{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px 22px}
+.tema-musica .cartao{padding:0;background:#24142a;overflow:visible;z-index:0}
+.tema-musica .cartao .capa{display:block;width:100%;aspect-ratio:1;image-rendering:pixelated;border-bottom:3px solid var(--ink)}
+.tema-musica .cartao b,.tema-musica .cartao em,.tema-musica .cartao>span,.tema-musica .cartao .ver{padding:0 10px}
+.tema-musica .cartao b{margin-top:8px}
+.tema-musica .cartao>span{display:block;font-size:16px;padding-bottom:4px}
+.tema-musica .cartao .ver{padding-bottom:10px}
+.tema-musica a.cartao::before{content:"";position:absolute;z-index:-1;top:6%;right:4%;width:88%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,#ffb35c 0 9%,#140f0b 9% 11%,#1a1418 11% 30%,#2a2228 30% 31%,#1a1418 31% 50%,#2a2228 50% 51%,#141014 51% 70%);
+  transition:transform .12s steps(3)}
+.tema-musica a.cartao:hover::before{transform:translateX(34%) rotate(40deg)}
+.tema-musica .grupo{background:repeating-linear-gradient(0deg,#5a3d22 0 10px,#4a3018 10px 12px);box-shadow:0 0 0 2px #80592f}
+.tema-musica .grupo b{color:#ffe08a;text-shadow:2px 2px 0 var(--ink)}
+.tema-musica .grupo span{color:#ffe9d6;text-shadow:1px 1px 0 var(--ink)}
+.tema-musica .item-lista li{counter-increment:faixa}
+.tema-musica .item-lista{counter-reset:faixa}
+.tema-musica .item-lista li::before{content:counter(faixa,decimal-leading-zero);font-size:17px;top:6px;color:#e2522b}
+.tema-musica .item-lista li{padding-left:34px}
+
+/* =========================================================
+   ESTANTE — Biblioteca: papel envelhecido e tinta
+   ========================================================= */
+.tema-estante .painel{
+  --p-bg:#ead9b6; --p-t:#2b1b10; --p-a:#7a2e2e; --p-m:rgba(43,27,16,.45); --p-l:rgba(90,61,34,.35);
+  --p-card:#f3e6c8; --p-edge:#a8865a; --p-frame:#80592f;
+  background:
+    radial-gradient(ellipse at 30% 0%,rgba(255,255,255,.35),transparent 60%),
+    radial-gradient(ellipse at 100% 100%,rgba(122,76,30,.25),transparent 55%),
+    #ead9b6;
+  color-scheme:light;
+}
+.tema-estante .painel h1{font-size:19px;text-shadow:2px 2px 0 rgba(122,46,46,.18)}
+.tema-estante .painel h1::after{content:"";display:block;height:3px;margin-top:10px;background:repeating-linear-gradient(90deg,#7a2e2e 0 8px,transparent 8px 12px)}
+.tema-estante .painel h2::before{content:"§ ";color:#a8865a}
+.tema-estante .lista li::before{content:"✒";font-size:15px;top:6px;color:#7a2e2e}
+.tema-estante .grupo{background:linear-gradient(180deg,#6b4a28,#4a3018);color:#fbebc8;box-shadow:0 0 0 2px #2a1a0c}
+.tema-estante .grupo b{color:#ffe08a}
+.tema-estante .grupo::before{content:"";position:absolute;left:12px;right:12px;top:-6px;height:6px;
+  background:repeating-linear-gradient(90deg,#7a2e2e 0 6px,#2e4a7a 6px 10px,#3d6b2f 10px 15px,#8a7a5a 15px 18px,#5a2d6b 18px 24px)}
+.tema-estante .estante{background:rgba(74,48,24,.15)}
+.tema-estante .filtro input{background:#f8eed6}
+.tema-estante .captura{background:rgba(122,76,30,.08)}
+/* livro aberto */
+.tema-estante .aberto{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:14px;background:#f6ead0;border:3px solid #4a3018;
+  box-shadow:0 0 0 2px #a8865a,6px 6px 0 rgba(0,0,0,.25)}
+.tema-estante .aberto>div{padding:14px 16px}
+.tema-estante .aberto>div:first-child{border-right:2px solid #c8a878;box-shadow:inset -10px 0 12px -10px rgba(74,48,24,.45)}
+.tema-estante .aberto>div:last-child{box-shadow:inset 10px 0 12px -10px rgba(74,48,24,.45)}
+.tema-estante .aberto h2{margin-top:6px}
+@media (max-width:900px){.tema-estante .aberto{grid-template-columns:1fr}.tema-estante .aberto>div:first-child{border-right:0;border-bottom:2px solid #c8a878}}
+
+/* =========================================================
+   SKUMM — Quest Log
+   ========================================================= */
+.tema-skumm .painel{
+  --p-bg:#1f160e; --p-t:#f0e0b8; --p-a:#ffd100; --p-m:rgba(240,224,184,.45); --p-l:rgba(255,209,0,.2);
+  --p-card:#2b1f13; --p-edge:#8a6a2a; --p-frame:#c9a227;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(255,209,0,.08),transparent 60%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.08) 0 1px,transparent 1px 3px),#1f160e;
+  box-shadow:0 0 0 3px #c9a227,0 0 0 5px var(--ink),0 0 0 7px #8a6a2a,0 0 0 9px var(--ink),8px 10px 0 8px rgba(0,0,0,.35);
+}
+.tema-skumm .painel h1{color:#ffd100;text-shadow:2px 2px 0 #000,0 0 12px rgba(255,209,0,.35)}
+.tema-skumm .painel h2{color:#ffd100;border-bottom:2px solid rgba(201,162,39,.5);padding-bottom:6px}
+.tema-skumm .painel h2::before{content:"✦ ";color:#c9a227}
+.tema-skumm .lista li::before{content:"•";color:#ffd100;font-size:22px;top:2px}
+.tema-skumm .entrada{padding-left:44px;background:linear-gradient(90deg,rgba(255,209,0,.08),transparent 40%),#2b1f13}
+.tema-skumm .entrada::before{content:"!";position:absolute;left:12px;top:10px;font-family:var(--display);font-size:18px;color:#ffd100;
+  text-shadow:2px 2px 0 #000,0 0 6px rgba(255,209,0,.6)}
+.tema-skumm .grupo::after{content:"?";position:absolute;right:12px;top:8px;font-family:var(--display);font-size:16px;color:#ffd100;text-shadow:2px 2px 0 #000}
+.tema-skumm .ficha{border:2px solid #8a6a2a;padding:12px 14px;background:rgba(0,0,0,.25)}
+.tema-skumm .ficha dd:first-of-type{color:#a335ee;font-family:var(--display);font-size:11px;padding-top:5px}
+.tema-skumm .captura{border:3px double #c9a227}
+
+/* =========================================================
+   TREINO — Arcade
+   ========================================================= */
+.tema-treino .painel{
+  --p-bg:#0b0f24; --p-t:#d8f4ff; --p-a:#3cf2ff; --p-m:rgba(216,244,255,.4); --p-l:rgba(60,242,255,.2);
+  --p-card:#121a3a; --p-edge:#2a3a8a; --p-frame:#ff3c8a;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px),
+    radial-gradient(ellipse at 50% 0%,#1d2a6a,transparent 70%),#0b0f24;
+}
+.tema-treino .painel-in::before{content:"PLAYER 1   HI-SCORE 0010";display:block;font-family:var(--display);font-size:8px;color:#ff3c8a;margin-top:16px;letter-spacing:.06em}
+.tema-treino .painel h1{color:#ffe14a;text-shadow:3px 3px 0 #ff3c8a,6px 6px 0 #2a3a8a;margin-top:10px}
+.tema-treino .painel h2{color:#3cf2ff}
+.tema-treino .painel h2::before{content:"► ";color:#ff3c8a}
+.tema-treino .lista li::before{content:"▸";color:#ffe14a;font-size:18px;top:5px}
+.tema-treino .grupo{background:#121a3a;box-shadow:0 0 0 2px #3cf2ff,0 0 14px rgba(60,242,255,.25)}
+.tema-treino .grupo .conta::after{content:"  PRESS START";color:#ffe14a}
+.tema-treino .grupo:hover .conta::after{animation:pisca .5s steps(2) infinite}
+.tema-treino .barra{height:18px;box-shadow:0 0 0 2px #3cf2ff;background:#05071a}
+.tema-treino .barra i{background:repeating-linear-gradient(90deg,#ffe14a 0 6px,#ffb000 6px 8px)}
+.tema-treino .missao div:first-child::before{content:"LV";font-family:var(--display);font-size:8px;color:#ff3c8a;margin-right:8px;padding-top:6px}
+.tema-treino .missao div:first-child{justify-content:flex-start;gap:4px}
+.tema-treino .missao div:first-child span{margin-left:auto}
+.tema-treino .cartao{box-shadow:0 0 0 2px #2a3a8a}
+
+/* =========================================================
+   OFICINA — Terminal CRT
+   ========================================================= */
+.tema-oficina .painel{
+  --p-bg:#050a05; --p-t:#9dffb0; --p-a:#7dff8a; --p-m:rgba(157,255,176,.4); --p-l:rgba(125,255,138,.18);
+  --p-card:#071207; --p-edge:#1e5a28; --p-frame:#3a3f46;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 1px,transparent 1px 3px),
+    radial-gradient(ellipse at 50% 40%,#0c1c0e,#050a05 75%);
+  text-shadow:0 0 6px rgba(125,255,138,.35);
+}
+.tema-oficina .painel *{font-family:var(--body)!important}
+.tema-oficina .painel h1{font-size:30px;line-height:1.1;letter-spacing:.02em}
+.tema-oficina .painel h1::before{content:"$ cat ";color:#f4c16a}
+.tema-oficina .painel h1::after{content:"_";animation:pisca 1s steps(2) infinite}
+.tema-oficina .painel h2{font-size:24px;color:#f4c16a}
+.tema-oficina .painel h2::before{content:"## ";color:#3a8a44}
+.tema-oficina .lista li::before{content:">";color:#f4c16a;font-size:20px;top:5px}
+.tema-oficina .cartao,.tema-oficina .grupo{background:var(--p-card);box-shadow:none;border:2px dashed #2a7a36}
+.tema-oficina a.cartao:hover,.tema-oficina .grupo:hover{border-style:solid;border-color:#7dff8a;box-shadow:0 0 12px rgba(125,255,138,.25)}
+.tema-oficina .cartao b,.tema-oficina .grupo b{font-size:22px;line-height:1.1}
+.tema-oficina .grupo b::before{content:"drwxr-xr-x  ";color:#3a8a44;font-size:17px}
+.tema-oficina .grupo b::after{content:"/"}
+.tema-oficina .estado{font-size:15px;padding:1px 6px}
+.tema-oficina .filtro input{background:#020502;font-size:22px}
+
+/* =========================================================
+   NATUREZA — Caderno de campo
+   ========================================================= */
+.tema-natureza .painel{
+  --p-bg:#e3dcb8; --p-t:#22301c; --p-a:#3d6b2f; --p-m:rgba(34,48,28,.45); --p-l:rgba(61,107,47,.3);
+  --p-card:#f4efd8; --p-edge:#b8ab78; --p-frame:#6b5a32;
+  background:
+    linear-gradient(90deg,transparent 38px,rgba(192,88,42,.35) 38px 40px,transparent 40px),
+    repeating-linear-gradient(0deg,transparent 0 27px,rgba(61,107,47,.16) 27px 28px),
+    #e3dcb8;
+  color-scheme:light;
+}
+.tema-natureza .painel-in{padding-left:54px}
+.tema-natureza .painel h1{color:#2f5a24;text-shadow:2px 2px 0 rgba(61,107,47,.15)}
+.tema-natureza .painel h2::before{content:"❦ ";color:#c0582a}
+.tema-natureza .lista li::before{content:"✿";color:#c0582a;font-size:14px;top:7px}
+.tema-natureza .cartao,.tema-natureza .entrada,.tema-natureza .grupo{background:#fbf8ea;box-shadow:0 0 0 2px #d8cfa8,4px 5px 0 rgba(0,0,0,.18);border-color:#fbf8ea;transform:rotate(-1deg)}
+.tema-natureza .grelha>:nth-child(2n),.tema-natureza .grupos>:nth-child(2n),.tema-natureza .entrada:nth-of-type(2n){transform:rotate(1.2deg)}
+.tema-natureza .cartao::after,.tema-natureza .entrada::after,.tema-natureza .grupo::after{content:"";position:absolute;top:-9px;left:50%;width:56px;height:16px;margin-left:-28px;
+  background:rgba(232,216,140,.75);box-shadow:inset 0 0 0 1px rgba(160,140,70,.4);transform:rotate(-3deg)}
+.tema-natureza a.cartao:hover,.tema-natureza a.entrada:hover,.tema-natureza .grupo:hover{transform:rotate(0) translateY(-2px);box-shadow:0 0 0 2px #3d6b2f,4px 5px 0 rgba(0,0,0,.18)}
+.tema-natureza .captura{background:#fbf8ea;border:6px solid #fbf8ea;border-bottom-width:26px;box-shadow:0 0 0 2px #d8cfa8,4px 5px 0 rgba(0,0,0,.18);transform:rotate(-1deg);color:var(--p-m)}
+.tema-natureza .filtro input{background:#fbf8ea}
+@media (max-width:760px){.tema-natureza .painel-in{padding-left:46px}}

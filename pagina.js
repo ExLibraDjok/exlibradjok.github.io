@@ -47,9 +47,36 @@
     b.prepend(c);
   });
 
+  // ---------- capas de discos em pixel art (24x24), sempre iguais para o mesmo nome ----------
+  function capa(cv, nome) {
+    var h = 2166136261; for (var k = 0; k < nome.length; k++) { h ^= nome.charCodeAt(k); h = Math.imul(h, 16777619); }
+    var r = function () { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 10000) / 10000; };
+    var PAL = [["#2a1230", "#9c2f5a", "#e2522b", "#ffb35c", "#ffe08a"], ["#0b1a2a", "#1d4a6a", "#3fa7a0", "#a8e0c0", "#f0f8e0"],
+      ["#1a0a2a", "#5a1a7a", "#c03ab0", "#ff8ae0", "#fff0ff"], ["#2a1a0a", "#6b3a1a", "#c0782a", "#e8c070", "#fff4d0"],
+      ["#0e0e12", "#3a3a44", "#8a8a96", "#d8d8e0", "#ffffff"], ["#0a1a0a", "#1a4a2a", "#4a8a3a", "#c0d860", "#f8ffd0"]];
+    var pal = PAL[Math.floor(r() * PAL.length)], motivo = Math.floor(r() * 6), c = cv.getContext("2d");
+    var B = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
+    var cx = 8 + r() * 8, cy = 6 + r() * 8, f1 = 0.3 + r() * 0.5, f2 = r() * 6;
+    for (var y = 0; y < 24; y++) for (var x = 0; x < 24; x++) {
+      var v, d = Math.hypot(x - cx, y - cy);
+      switch (motivo) {
+        case 0: v = y < 15 ? y / 15 * 2.4 : 2 + ((y + Math.round(2 * Math.sin(x * f1 + f2))) % 4 < 2 ? 1 : 0); if (d < 4.5) v = 4; break;          // sol e dunas
+        case 1: v = Math.floor(d / 2.2) % 4 + (d < 2 ? 1 : 0); break;                                                                           // anéis
+        case 2: v = y / 24 * 2; if (d < 3.5) v = 4; if (y > 22 - Math.abs(x - 12) * 1.2 - 6) v = 0.4; if (y > 26 - Math.abs(x - 12) * 1.2 - 6 && y < 28 - Math.abs(x - 12) * 1.2 - 6) v = 3; break; // montanha e lua
+        case 3: v = (Math.floor((y + 3 * Math.sin(x * f1 + f2)) / 3) % 5 + 5) % 5; break;                                                     // ondas
+        case 4: v = 0.6 + y / 24; if (y > 6 && Math.abs(x - 12) < (y - 6) * 0.7 && y < 20) v = 3; if (Math.hypot(x - 12, (y - 14) * 1.6) < 2.6) v = Math.hypot(x - 12, (y - 14) * 1.6) < 1.2 ? 0 : 4; break; // pirâmide com olho
+        default: v = ((Math.atan2(y - 12, x - 12) + Math.PI) / (Math.PI * 2) * 6 + Math.hypot(x - 12, y - 12) / 3) % 4; break;               // espiral
+      }
+      var b = Math.floor(v), fr = v - b;
+      c.fillStyle = pal[Math.max(0, Math.min(4, b + ((B[y & 3][x & 3] + 0.5) / 16 < fr ? 1 : 0)))];
+      c.fillRect(x, y, 1, 1);
+    }
+  }
+
   // ---------- conteúdo ----------
   var main = document.getElementById("conteudo");
   if (cat && cat.lang) main.lang = cat.lang;
+  function VOZ_ABRIR() { return (window.__voz && window.__voz.abrir) || "abrir ▶"; }
   var EST = { curso: "EM CURSO", ativo: "ATIVO", feito: "APRENDIDO", inicio: "A COMEÇAR" };
 
   function busca(o) { return ' data-busca="' + esc([o.nome, o.sub, o.resumo, o.valor].filter(Boolean).join(" ").toLowerCase()) + '"'; }
@@ -60,9 +87,9 @@
       case "cartoes":
         corpo = '<div class="grelha">' + it.map(function (o) {
           var abre = o.pagina ? '<a href="' + link(o) + '"' : "<div", fecha = o.pagina ? "</a>" : "</div>";
-          return abre + ' class="cartao"' + busca(o) + ">" + (o.estado ? '<span class="estado ' + o.estado + '">' + EST[o.estado] + "</span>" : "") +
+          return abre + ' class="cartao"' + busca(o) + ">" + (catId === "musica" ? '<canvas class="capa" data-capa="' + esc(o.nome) + '" width="24" height="24" aria-hidden="true"></canvas>' : "") + (o.estado ? '<span class="estado ' + o.estado + '">' + EST[o.estado] + "</span>" : "") +
             "<b>" + esc(o.nome) + "</b>" + (o.sub ? "<em>" + esc(o.sub) + "</em>" : "") +
-            '<span class="' + vazio(o.resumo || "") + '">' + esc(o.resumo || "") + "</span>" + (o.pagina ? '<i class="ver">abrir ▶</i>' : "") + fecha;
+            '<span class="' + vazio(o.resumo || "") + '">' + esc(o.resumo || "") + "</span>" + (o.pagina ? '<i class="ver">' + VOZ_ABRIR() + '</i>' : "") + fecha;
         }).join("") + "</div>"; break;
       case "lista":
         corpo = '<ul class="lista">' + it.map(function (o) { return '<li class="' + vazio(o) + '" data-busca="' + esc(String(o).toLowerCase()) + '">' + esc(o) + "</li>"; }).join("") + "</ul>"; break;
@@ -82,7 +109,7 @@
         }).join(""); break;
       case "entradas":
         corpo = it.map(function (o) {
-          return '<a class="entrada" href="' + link(o) + '"' + busca(o) + "><h3>" + esc(o.nome) + "</h3>" + (o.sub ? '<p class="data' + vazio(o.sub) + '">' + esc(o.sub) + "</p>" : "") + '<p class="' + vazio(o.resumo) + '">' + esc(o.resumo) + '</p><i class="ver">abrir ▶</i></a>';
+          return '<a class="entrada" href="' + link(o) + '"' + busca(o) + "><h3>" + esc(o.nome) + "</h3>" + (o.sub ? '<p class="data' + vazio(o.sub) + '">' + esc(o.sub) + "</p>" : "") + '<p class="' + vazio(o.resumo) + '">' + esc(o.resumo) + '</p><i class="ver">' + VOZ_ABRIR() + '</i></a>';
         }).join(""); break;
     }
     return '<section class="bloco">' + h + corpo + "</section>";
@@ -90,17 +117,26 @@
   function contar(g) { var n = 0; g.seccoes.forEach(function (s) { if (s.tipo !== "texto" && s.tipo !== "ficha") n += s.itens.length; }); return n; }
 
   var en = cat && cat.lang === "en", html;
-  var T = en ? { seccoes: "Sections", itens: "items", item: "item", procurar: "search…", nada: "Nothing found." }
-             : { seccoes: "Secções", itens: "itens", item: "item", procurar: "procurar…", nada: "Nada encontrado." };
+  var VOZ = {
+    musica:   { seccoes: "Caixotes de discos", itens: "discos", item: "disco", procurar: "procurar no caixote…", nada: "Nada neste caixote.", abrir: "pôr a tocar ▶", voltar: "◀" },
+    estante:  { seccoes: "Prateleiras", itens: "livros", item: "livro", procurar: "procurar na prateleira…", nada: "Nenhum livro com esse nome.", abrir: "abrir ▶", voltar: "◀" },
+    skumm:    { seccoes: "Chapters", itens: "entries", item: "entry", procurar: "search the log…", nada: "Nothing in the log.", abrir: "read ▶", voltar: "◀" },
+    treino:   { seccoes: "Escolhe o modo", itens: "níveis", item: "nível", procurar: "procurar…", nada: "SEM RESULTADOS", abrir: "START ▶", voltar: "◀" },
+    oficina:  { seccoes: "ls ~/oficina", itens: "ficheiros", item: "ficheiro", procurar: "grep…", nada: "grep: sem resultados", abrir: "./abrir", voltar: "cd .." },
+    natureza: { seccoes: "Cadernos", itens: "registos", item: "registo", procurar: "procurar no caderno…", nada: "Nada anotado.", abrir: "ver ▶", voltar: "◀" }
+  };
+  var T = VOZ[catId] || VOZ.natureza; window.__voz = T;
+  document.body.classList.add("tema-" + catId);
   if (!cat || (grupoId && !grupo) || (itemId && !item)) {
     html = "<h1>Caminho perdido</h1><p class='intro'>Esta página não existe (ainda).</p><p><a href='./'>◀ voltar ao monte</a></p>";
     document.title = "Caminho perdido · After Hours Compendium";
   } else if (!grupo) {
     // página da categoria: lista de grupos
-    html = "<h1>" + esc(cat.nome) + '</h1><p class="intro">' + esc(cat.intro) + "</p>" +
+    html = "<h1>" + esc(cat.nome) + '</h1><p class="intro" data-escrever>' + esc(cat.intro) + "</p>" +
       '<section class="bloco"><h2>' + T.seccoes + '</h2><div class="grupos">' + cat.grupos.map(function (g) {
         var n = contar(g);
-        return '<a class="grupo" href="' + urlGrupo(catId, g.id) + '"><b>' + esc(g.nome) + '</b><span class="' + vazio(g.resumo) + '">' + esc(g.resumo) + "</span>" +
+        var minis = catId === "musica" ? '<span class="mini">' + comPagina(g).slice(0, 4).map(function (o) { return '<canvas data-capa="' + esc(o.nome) + '" width="24" height="24"></canvas>'; }).join("") + "</span>" : "";
+        return '<a class="grupo" href="' + urlGrupo(catId, g.id) + '"><b>' + esc(g.nome) + '</b><span class="' + vazio(g.resumo) + '">' + esc(g.resumo) + "</span>" + minis +
           '<i class="conta">' + n + " " + (n === 1 ? T.item : T.itens) + " ▶</i></a>";
       }).join("") + "</div></section>" +
       (cat.seccoes || []).map(function (s) { return secao(s, ""); }).join("");
@@ -108,25 +144,44 @@
   } else if (!item) {
     // página do grupo
     var n = contar(grupo);
-    html = '<a class="migalha" href="' + catId + '.html">◀ ' + esc(cat.nome) + "</a>" +
-      "<h1>" + esc(grupo.nome) + '</h1><p class="intro' + vazio(grupo.resumo) + '">' + esc(grupo.resumo) + "</p>" +
+    html = '<a class="migalha" href="' + catId + '.html">' + T.voltar + " " + esc(cat.nome) + "</a>" +
+      "<h1>" + esc(grupo.nome) + '</h1><p class="intro' + vazio(grupo.resumo) + '" data-escrever>' + esc(grupo.resumo) + "</p>" +
       (n >= 5 ? '<label class="filtro"><span class="sr">' + T.procurar + '</span><input type="search" id="filtro" placeholder="' + T.procurar + '" autocomplete="off"></label><p class="nada" id="nada" hidden>' + T.nada + "</p>" : "") +
       grupo.seccoes.map(function (s) { return secao(s, grupo.id); }).join("");
     document.title = grupo.nome + " · " + cat.nome + " · After Hours Compendium";
   } else {
     var p = item.pagina, idx = lista.indexOf(item), ant = lista[idx - 1], seg = lista[idx + 1];
-    html = '<p class="migalha"><a href="' + catId + '.html">◀ ' + esc(cat.nome) + '</a> <span>/</span> <a href="' + urlGrupo(catId, grupo.id) + '">' + esc(grupo.nome) + "</a></p>" +
-      "<h1>" + esc(item.nome) + "</h1>" + (item.sub ? '<p class="sub' + vazio(item.sub) + '">' + esc(item.sub) + "</p>" : "") +
-      (p.campos ? '<dl class="ficha">' + p.campos.map(function (o) { return "<dt>" + esc(o[0]) + '</dt><dd class="' + vazio(o[1]) + '">' + esc(o[1]) + "</dd>"; }).join("") + "</dl>" : "") +
-      (p.captura ? '<div class="captura">[' + (en ? "screenshot" : "imagem") + "]</div>" : "") +
-      (p.texto || []).map(function (t) { return '<p class="' + vazio(t) + '">' + esc(t) + "</p>"; }).join("") +
-      (p.listas || []).map(function (l) { return "<h2>" + esc(l.titulo) + '</h2><ul class="lista">' + l.itens.map(function (o) { return '<li class="' + vazio(o) + '">' + esc(o) + "</li>"; }).join("") + "</ul>"; }).join("") +
+    var campos = p.campos ? '<dl class="ficha">' + p.campos.map(function (o) { return "<dt>" + esc(o[0]) + '</dt><dd class="' + vazio(o[1]) + '">' + esc(o[1]) + "</dd>"; }).join("") + "</dl>" : "";
+    var captura = p.captura ? '<div class="captura">[' + (en ? "screenshot" : "imagem") + "]</div>" : "";
+    var texto = (p.texto || []).map(function (t) { return '<p class="' + vazio(t) + '">' + esc(t) + "</p>"; }).join("");
+    var listas = (p.listas || []).map(function (l) { return "<h2>" + esc(l.titulo) + '</h2><ul class="lista item-lista">' + l.itens.map(function (o) { return '<li class="' + vazio(o) + '">' + esc(o) + "</li>"; }).join("") + "</ul>"; }).join("");
+    var titulo = "<h1>" + esc(item.nome) + "</h1>" + (item.sub ? '<p class="sub' + vazio(item.sub) + '">' + esc(item.sub) + "</p>" : "");
+    var corpo;
+    if (catId === "musica") corpo = '<div class="cabeca"><canvas class="capa-grande" data-capa="' + esc(item.nome) + '" width="24" height="24" aria-hidden="true"></canvas><div>' + titulo + "</div></div>" + campos + texto + listas;
+    else if (catId === "estante") corpo = titulo + '<div class="aberto"><div>' + campos + texto + "</div><div>" + listas + "</div></div>";
+    else corpo = titulo + campos + captura + texto + listas;
+    html = '<p class="migalha"><a href="' + catId + '.html">' + T.voltar + " " + esc(cat.nome) + '</a> <span>/</span> <a href="' + urlGrupo(catId, grupo.id) + '">' + esc(grupo.nome) + "</a></p>" + corpo +
       '<nav class="passos" aria-label="Itens">' +
       (ant ? '<a href="' + urlItem(catId, grupo.id, ant.id) + '">◀ ' + esc(ant.nome) + "</a>" : "<span></span>") +
       (seg ? '<a href="' + urlItem(catId, grupo.id, seg.id) + '">' + esc(seg.nome) + " ▶</a>" : "<span></span>") + "</nav>";
     document.title = item.nome + " · " + grupo.nome + " · After Hours Compendium";
   }
   main.innerHTML = '<div class="painel-in">' + html + "</div>";
+
+  // capas de discos geradas a partir do nome
+  main.querySelectorAll("canvas[data-capa]").forEach(function (cv) { capa(cv, cv.dataset.capa); });
+
+  // texto de introdução escrito letra a letra
+  main.querySelectorAll("[data-escrever]").forEach(function (el) {
+    if (still) return;
+    var full = el.textContent, i = 0;
+    el.style.minHeight = el.offsetHeight + "px"; el.textContent = ""; el.classList.add("a-escrever");
+    var tm = setInterval(function () {
+      i += 2; el.textContent = full.slice(0, i);
+      if (i >= full.length) { clearInterval(tm); el.classList.remove("a-escrever"); }
+    }, 16);
+    main.addEventListener("click", function () { clearInterval(tm); el.textContent = full; el.classList.remove("a-escrever"); }, { once: true });
+  });
 
   // pesquisa dentro do grupo
   var filtro = document.getElementById("filtro");
