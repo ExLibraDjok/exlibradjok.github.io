@@ -1,0 +1,133 @@
+/* Estilo partilhado pelas páginas interiores do After Hours Compendium */
+
+:root{
+  --ink:#140f0b;
+  --bark:#5a3d22;
+  --bark-hi:#80592f;
+  --bark-lo:#33220f;
+  --cream:#fbebc8;
+  --gold:#f4c16a;
+  --moss:#1e2b1a;
+  --leaf:#8fbf5a;
+  --sky:#7fb6e0;
+  --display:"Press Start 2P", "Courier New", monospace;
+  --body:"VT323", "Courier New", monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--ink)}
+body{font-family:var(--body);color:var(--cream)}
+a{color:var(--gold)}
+
+/* fundo: a mesma cena do monte, escurecida */
+.stage{position:fixed;inset:0;overflow:hidden;filter:brightness(.42) saturate(.85) contrast(1.15)}
+#bg,#motes{position:absolute;image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+
+/* barra lateral (igual à da página inicial) */
+nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:flex;flex-direction:column;gap:14px;
+  padding:16px 14px;background:rgba(20,15,11,.72);
+  border:3px solid var(--ink);box-shadow:0 0 0 3px var(--bark),0 0 0 6px var(--ink),6px 8px 0 6px rgba(0,0,0,.35)}
+.brand{font-family:var(--display);color:var(--gold);font-size:15px;line-height:1.5;margin:0;text-decoration:none;
+  text-shadow:3px 3px 0 var(--ink);display:block}
+.brand small{display:block;font-family:var(--body);font-size:18px;color:var(--cream);opacity:.8;margin-top:6px;text-shadow:none}
+.links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.plank{box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:8px;width:200px;height:56px;text-decoration:none;
+  padding:0 10px 8px 34px;font-family:var(--display);font-size:11px;color:var(--cream);
+  text-shadow:2px 2px 0 var(--ink);background:url(img/plank.png) 0 0/200px 56px no-repeat;image-rendering:pixelated;
+  transition:transform .08s steps(2)}
+.plank canvas{width:20px;height:20px;image-rendering:pixelated;flex:0 0 20px;filter:drop-shadow(2px 2px 0 #140f0b)}
+.plank:hover,.plank:focus-visible,.plank.atual{background-image:url(img/plank-hover.png);color:#fff3cf}
+.plank:hover,.plank:focus-visible{transform:translateY(-2px)}
+.plank.atual{color:var(--gold)}
+.plank.atual::after{content:"◀";margin-left:auto;color:var(--gold);animation:pisca 1s steps(2) infinite}
+.plank:active{transform:translateY(2px);filter:brightness(.85)}
+.plank:focus-visible,.brand:focus-visible,.voltar:focus-visible{outline:2px dashed var(--gold);outline-offset:2px}
+.voltar{margin-top:auto;font-size:18px;color:var(--cream);opacity:.8;text-decoration:none}
+.voltar:hover{opacity:1;color:var(--gold)}
+
+/* painel de conteúdo */
+.painel{position:fixed;z-index:4;top:18px;bottom:18px;left:288px;right:24px;max-width:860px;
+  background:rgba(20,15,11,.9);border:3px solid var(--ink);
+  box-shadow:0 0 0 3px var(--bark),0 0 0 6px var(--ink),6px 8px 0 6px rgba(0,0,0,.35);
+  overflow-y:auto;scrollbar-color:var(--bark-hi) var(--ink);scrollbar-width:thin}
+.painel-in{padding:0 28px 40px}
+.banner{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;
+  border-bottom:3px solid var(--ink);box-shadow:0 3px 0 var(--bark)}
+.painel h1{font-family:var(--display);font-weight:400;color:var(--gold);font-size:20px;line-height:1.5;margin:28px 0 8px;
+  text-shadow:3px 3px 0 var(--ink)}
+.intro{font-size:24px;line-height:1.2;color:var(--cream);margin:0 0 8px;max-width:60ch}
+.painel h2{font-family:var(--display);font-weight:400;font-size:12px;line-height:1.6;color:var(--gold);margin:30px 0 12px}
+.painel h2::before{content:"▶ ";color:var(--bark-hi)}
+.painel p{font-size:21px;line-height:1.25;margin:0 0 10px;max-width:64ch}
+.nota{opacity:.6;font-size:18px!important}
+
+/* cartões */
+.grelha{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.cartao{background:rgba(51,34,15,.55);border:3px solid var(--ink);box-shadow:0 0 0 2px var(--bark);padding:12px 14px;
+  font-size:20px;line-height:1.15;transition:transform .1s steps(2),box-shadow .1s steps(2)}
+.cartao:hover{transform:translateY(-2px);box-shadow:0 0 0 2px var(--gold)}
+.cartao b{display:block;font-family:var(--display);font-weight:400;font-size:10px;line-height:1.6;color:var(--cream);margin-bottom:6px}
+.cartao em{font-style:normal;color:var(--gold);display:block;margin-bottom:4px;font-size:18px}
+.vazio{color:rgba(251,235,200,.45)}
+
+/* lista com marcador */
+.lista{list-style:none;margin:0;padding:0}
+.lista li{font-size:21px;padding:6px 0 6px 22px;position:relative;border-bottom:2px dashed rgba(128,89,47,.45)}
+.lista li:last-child{border-bottom:0}
+.lista li::before{content:"◆";position:absolute;left:0;color:var(--gold);font-size:14px;top:10px}
+.lista small{color:var(--gold);opacity:.8;margin-left:6px}
+
+/* estante de livros */
+.estante{display:flex;flex-wrap:wrap;align-items:flex-end;gap:4px;padding:10px 10px 0;
+  border-bottom:10px solid var(--bark);box-shadow:0 3px 0 var(--ink),inset 0 -2px 0 var(--bark-hi);background:rgba(0,0,0,.25)}
+.livro{writing-mode:vertical-rl;transform:rotate(180deg);font-size:19px;line-height:1.05;padding:12px 5px;color:var(--cream);
+  border:2px solid var(--ink);box-shadow:inset -3px 0 0 rgba(255,255,255,.12),inset 3px 0 0 rgba(0,0,0,.25);
+  min-height:170px;white-space:nowrap;transition:transform .1s steps(2)}
+.livro:hover{transform:rotate(180deg) translateY(8px)}
+.livro span{opacity:.75;font-size:16px}
+.livro.fav{outline:2px solid var(--gold);outline-offset:-5px}
+
+/* ficha / atributos */
+.ficha{display:grid;grid-template-columns:max-content 1fr;gap:6px 22px;font-size:21px;margin:0}
+.ficha dt{color:var(--gold)}
+.ficha dd{margin:0}
+
+/* missões com barra de progresso */
+.missao{margin:0 0 14px}
+.missao div{display:flex;justify-content:space-between;font-size:21px}
+.missao div span{color:var(--gold)}
+.barra{height:14px;border:2px solid var(--ink);box-shadow:0 0 0 2px var(--bark);background:#0b0805;margin-top:6px}
+.barra i{display:block;height:100%;background:repeating-linear-gradient(90deg,var(--leaf) 0 6px,#6f9d43 6px 8px);
+  animation:enche 1.2s steps(10) both}
+@keyframes enche{from{width:0}}
+
+/* estado de projeto */
+.estado{font-family:var(--display);font-size:8px;line-height:1;padding:5px 6px;border:2px solid var(--ink);display:inline-block;margin-bottom:6px}
+.estado.curso{background:#3d6b2f;color:#eaffd0}
+.estado.ativo{background:#2d5a7a;color:#d8f0ff}
+.estado.inicio{background:#7a5a2d;color:#ffefcf}
+.estado.feito{background:#5a2d6b;color:#f5dcff}
+
+/* entrada de diário */
+.entrada{border:3px solid var(--ink);box-shadow:0 0 0 2px var(--bark);background:rgba(240,225,190,.07);padding:14px 16px;margin-bottom:14px}
+.entrada h3{font-family:var(--display);font-weight:400;font-size:11px;line-height:1.6;color:var(--gold);margin:0 0 10px}
+.captura{aspect-ratio:16/9;border:2px dashed rgba(244,193,106,.5);display:grid;place-items:center;color:rgba(251,235,200,.5);
+  font-size:20px;margin-bottom:10px;background:rgba(0,0,0,.25)}
+
+@keyframes pisca{50%{opacity:0}}
+
+/* entrada animada quando o browser não suporta transições entre páginas */
+html.sem-vt .painel{animation:painel-entra .55s steps(7) both}
+
+@media (max-width:760px){
+  nav{left:10px;right:10px;top:auto;bottom:10px;width:auto;padding:10px;gap:8px}
+  .brand{font-size:12px}.brand small{display:none}
+  .links{flex-direction:row;overflow-x:auto;gap:8px;padding:2px 4px 6px}
+  .plank{flex:0 0 200px}
+  .voltar{display:none}
+  .painel{left:10px;right:10px;top:10px;bottom:150px}
+  .painel-in{padding:0 16px 30px}
+  .painel h1{font-size:15px}
+  .intro{font-size:21px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

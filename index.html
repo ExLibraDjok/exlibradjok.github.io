@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="transicoes.css">
 <style>
 /* Layout: the hilltop scene fills the screen as one low-res canvas (364x204, scaled up with hard pixels), animated in place.
    A wooden signpost sidebar on the left holds the links; on phones it becomes a row of planks at the bottom. Single theme by choice. */
@@ -36,7 +37,7 @@ nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:
   text-shadow:3px 3px 0 var(--ink);letter-spacing:.02em}
 .brand small{display:block;font-family:var(--body);font-weight:400;font-size:18px;color:var(--cream);opacity:.8;margin-top:6px;text-shadow:none;letter-spacing:0}
 .links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.plank{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:8px;width:200px;height:56px;
+.plank{all:unset;box-sizing:border-box;text-decoration:none;cursor:pointer;display:flex;align-items:center;gap:8px;width:200px;height:56px;
   padding:0 10px 8px 34px;font-family:var(--display);font-weight:400;font-size:11px;color:var(--cream);
   text-shadow:2px 2px 0 var(--ink);background:url(img/plank.png) 0 0/200px 56px no-repeat;image-rendering:pixelated;
   transition:transform .08s steps(2)}
@@ -72,12 +73,12 @@ nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:
 <nav aria-label="Páginas">
   <h1 class="brand">After Hours Compendium<small>um sítio meu, depois de horas</small></h1>
   <ul class="links">
-    <li><button class="plank" data-icon="note" data-page="Música">Música</button></li>
-    <li><button class="plank" data-icon="book" data-page="Estante">Estante</button></li>
-    <li><button class="plank" data-icon="dagger" data-page="Diary of Skumm">Skumm</button></li>
-    <li><button class="plank" data-icon="bar" data-page="Treino">Treino</button></li>
-    <li><button class="plank" data-icon="gear" data-page="Oficina">Oficina</button></li>
-    <li><button class="plank" data-icon="leaf" data-page="Natureza">Natureza</button></li>
+    <li><a class="plank" href="musica.html" data-icon="note">Música</a></li>
+    <li><a class="plank" href="estante.html" data-icon="book">Estante</a></li>
+    <li><a class="plank" href="skumm.html" data-icon="dagger">Skumm</a></li>
+    <li><a class="plank" href="treino.html" data-icon="bar">Treino</a></li>
+    <li><a class="plank" href="oficina.html" data-icon="gear">Oficina</a></li>
+    <li><a class="plank" href="natureza.html" data-icon="leaf">Natureza</a></li>
   </ul>
   <div class="foot">▶ escolhe um caminho</div>
 </nav>
@@ -199,9 +200,6 @@ nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:
     var i=0;timer=setInterval(function(){dx.textContent=text.slice(0,++i);if(i>=text.length)clearInterval(timer);},28);
   }
   dlg.addEventListener("click",function(){dlg.classList.remove("on");});
-  document.querySelectorAll(".plank").forEach(function(b){
-    b.addEventListener("click",function(){say(b.dataset.page,"Este caminho ainda está a ser construído. Volta mais tarde.");});
-  });
 })();
 </script>
 </body>

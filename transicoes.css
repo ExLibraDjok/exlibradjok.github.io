@@ -1,0 +1,35 @@
+/* Transições entre páginas (View Transitions API, Chrome/Edge/Safari recentes).
+   A barra lateral fica parada, a cena de fundo escurece/clareia em degraus (estilo SNES)
+   e o painel de conteúdo desliza em passos de píxel. Noutros browsers a navegação é normal. */
+@view-transition { navigation: auto; }
+
+nav { view-transition-name: sidebar; }
+.stage { view-transition-name: cena; }
+.painel { view-transition-name: painel; }
+
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; }
+
+::view-transition-group(sidebar) { animation-duration: 0s; }
+::view-transition-old(sidebar) { display: none; }
+::view-transition-new(sidebar) { animation: none; }
+
+::view-transition-group(cena) { animation-duration: .6s; }
+::view-transition-old(cena) { animation: cena-sai .6s steps(5) both; }
+::view-transition-new(cena) { animation: cena-entra .6s steps(5) both; }
+
+::view-transition-old(painel) { animation: painel-sai .3s steps(4) both; }
+::view-transition-new(painel) { animation: painel-entra .55s steps(7) .12s both; }
+
+@keyframes cena-sai { to { opacity: 0; } }
+@keyframes cena-entra { from { opacity: 0; } }
+@keyframes painel-entra {
+  from { opacity: 0; transform: translateX(56px); clip-path: inset(0 0 100% 0); }
+  60%  { opacity: 1; }
+  to   { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+}
+@keyframes painel-sai { to { opacity: 0; transform: translateX(-32px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}

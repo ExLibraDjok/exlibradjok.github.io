@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estante · After Hours Compendium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="transicoes.css">
+<link rel="stylesheet" href="pagina.css">
+</head>
+<body data-page="estante">
+<div class="stage" aria-hidden="true"><canvas id="bg" width="728" height="408"></canvas><canvas id="motes" width="364" height="204"></canvas></div>
+<nav id="nav" aria-label="Páginas"></nav>
+<main class="painel">
+<canvas class="banner" id="banner" width="160" height="44" aria-hidden="true"></canvas>
+<div class="painel-in">
+<h1>Estante</h1>
+<p class="intro">Leio de tudo. O objetivo é simples: ler muito, e lembrar-me do que li.</p>
+
+<h2>Já lidos</h2>
+<div class="estante" role="list">
+  <div class="livro fav" role="listitem" style="background:#7a2e2e" title="Favorito">It<br><span>Stephen King ★</span></div>
+  <div class="livro" role="listitem" style="background:#2e4a7a">Misery<br><span>Stephen King</span></div>
+  <div class="livro" role="listitem" style="background:#3d6b2f">Ensaio sobre a Cegueira<br><span>Saramago</span></div>
+  <div class="livro" role="listitem" style="background:#5a2d6b">Lord Edgware Dies<br><span>Agatha Christie</span></div>
+  <div class="livro" role="listitem" style="background:#7a5a2d">The Shining<br><span>Stephen King</span></div>
+</div>
+<p class="nota">★ = favorito. Passa o rato por cima dos livros.</p>
+
+<h2>Na fila</h2>
+<ul class="lista">
+  <li>The Cell <small>Stephen King</small></li>
+  <li>Dom Casmurro <small>Machado de Assis</small></li>
+  <li>Terra Sonâmbula <small>Mia Couto</small></li>
+  <li>A Costa dos Murmúrios <small>Lídia Jorge</small></li>
+  <li>O Homem em Busca de um Sentido <small>Viktor Frankl</small></li>
+  <li>Meditações <small>Marco Aurélio</small></li>
+  <li>A Vida Não É Útil <small>Ailton Krenak</small></li>
+  <li>Sociedade do Cansaço <small>Byung-Chul Han</small></li>
+</ul>
+
+<h2>Caderno de leituras</h2>
+<p>Um caderno pequeno ao lado de cada livro: palavras novas, citações e referências.</p>
+<div class="grelha">
+  <div class="cartao"><b>Palavras novas</b><span class="vazio">[palavra] — [significado] — ([livro], p. [x])</span></div>
+  <div class="cartao"><b>Citações</b><span class="vazio">“[citação]” — ([livro], p. [x])</span></div>
+  <div class="cartao"><b>Referências</b><span class="vazio">[nome, lugar ou obra citada no livro]</span></div>
+</div>
+</div>
+</main>
+<script src="pagina.js"></script>
+</body>
+</html>
