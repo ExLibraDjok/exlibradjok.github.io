@@ -29,23 +29,21 @@ body{font-family:var(--body);color:var(--cream)}
 .stage{position:fixed;inset:0;overflow:hidden}
 
 /* sidebar */
-nav{position:fixed;left:18px;top:18px;bottom:18px;width:230px;z-index:5;display:flex;flex-direction:column;gap:14px;
+nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:flex;flex-direction:column;gap:14px;
   padding:16px 14px;background:rgba(20,15,11,.72);
   border:3px solid var(--ink);box-shadow:0 0 0 3px var(--bark),0 0 0 6px var(--ink),6px 8px 0 6px rgba(0,0,0,.35)}
 .brand{font-family:var(--display);font-weight:700;color:var(--gold);font-size:26px;line-height:1.05;margin:0;
   text-shadow:3px 3px 0 var(--ink);letter-spacing:.02em}
 .brand small{display:block;font-family:var(--body);font-weight:400;font-size:18px;color:var(--cream);opacity:.8;margin-top:6px;text-shadow:none;letter-spacing:0}
-.links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
-.plank{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;width:100%;
-  padding:7px 12px 9px;font-family:var(--display);font-size:19px;color:var(--cream);
-  background:var(--bark);border:3px solid var(--ink);
-  box-shadow:inset 0 3px 0 var(--bark-hi),inset 0 -4px 0 var(--bark-lo),3px 3px 0 var(--ink);
+.links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.plank{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:8px;width:200px;height:56px;
+  padding:0 10px 8px 34px;font-family:var(--display);font-weight:600;font-size:18px;color:var(--cream);
+  text-shadow:2px 2px 0 var(--ink);background:url(img/plank.png) 0 0/200px 56px no-repeat;image-rendering:pixelated;
   transition:transform .08s steps(2)}
-.plank canvas{width:24px;height:24px;image-rendering:pixelated;flex:0 0 24px}
-.plank:hover,.plank:focus-visible{transform:translate(-1px,-2px);color:var(--gold);
-  box-shadow:inset 0 3px 0 var(--bark-hi),inset 0 -4px 0 var(--bark-lo),4px 5px 0 var(--ink),0 0 0 2px var(--gold)}
-.plank:active{transform:translate(2px,2px);box-shadow:inset 0 4px 0 var(--bark-lo),inset 0 -2px 0 var(--bark-hi),1px 1px 0 var(--ink)}
-.plank:focus-visible{outline:none}
+.plank canvas{width:20px;height:20px;image-rendering:pixelated;flex:0 0 20px;filter:drop-shadow(2px 2px 0 #140f0b)}
+.plank:hover,.plank:focus-visible{background-image:url(img/plank-hover.png);color:#fff3cf;transform:translateY(-2px)}
+.plank:active{transform:translateY(2px);filter:brightness(.85)}
+.plank:focus-visible{outline:2px dashed var(--gold);outline-offset:2px}
 .foot{margin-top:auto;font-size:17px;opacity:.7}
 
 /* dialog */
@@ -61,7 +59,7 @@ nav{position:fixed;left:18px;top:18px;bottom:18px;width:230px;z-index:5;display:
   nav{left:10px;right:10px;top:auto;bottom:10px;width:auto;padding:10px;gap:8px}
   .brand{font-size:20px}.brand small{display:none}
   .links{flex-direction:row;overflow-x:auto;gap:8px;padding:2px 4px 6px}
-  .plank{width:auto;flex:0 0 auto;font-size:16px;padding:6px 10px 8px}
+  .plank{flex:0 0 200px}
   .foot{display:none}
   .dialog{left:50%;width:calc(100% - 20px);bottom:auto;top:12px}
 }
