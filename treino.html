@@ -10,44 +10,12 @@
 <link rel="stylesheet" href="transicoes.css">
 <link rel="stylesheet" href="pagina.css">
 </head>
-<body data-page="treino">
-<div class="stage" aria-hidden="true"><canvas id="bg" width="728" height="408"></canvas><canvas id="motes" width="364" height="204"></canvas></div>
+<body data-cat="treino">
+<div class="stage" aria-hidden="true"><canvas id="bg" width="320" height="180"></canvas></div>
 <nav id="nav" aria-label="Páginas"></nav>
-<main class="painel">
-<canvas class="banner" id="banner" width="160" height="44" aria-hidden="true"></canvas>
-<div class="painel-in">
-<h1>Treino</h1>
-<p class="intro">Calistenia acima de tudo. Força, estética e resistência: devagar, mas sempre.</p>
-
-<h2>Missões ativas</h2>
-<div class="missao"><div>10 elevações estritas <span>5 / 10</span></div><div class="barra"><i style="width:50%"></i></div></div>
-<div class="missao"><div>Pistol squat sem apoio <span>fase 3</span></div><div class="barra"><i style="width:60%"></i></div></div>
-<div class="missao"><div>Front lever completo <span>tuck</span></div><div class="barra"><i style="width:25%"></i></div></div>
-<p class="nota">Os números são editáveis: muda o texto e a largura da barra (width) no ficheiro treino.html.</p>
-
-<h2>Três arenas</h2>
-<div class="grelha">
-  <div class="cartao"><b>Casa</b>Barra de elevações, paralelas, argolas, paralletes e elásticos.</div>
-  <div class="cartao"><b>Ginásio</b>Calistenia com peso, halteres e máquinas.</div>
-  <div class="cartao"><b>Parque</b>Barras ao ar livre e espaço para mexer.</div>
-</div>
-
-<h2>Rituais</h2>
-<ul class="lista">
-  <li>Mobilidade dinâmica de manhã <small>15 min</small></li>
-  <li>Yin yoga à noite</li>
-  <li>Animal flow</li>
-  <li>Caminhadas nos dias de descanso</li>
-</ul>
-
-<h2>A experimentar</h2>
-<ul class="lista">
-  <li>Cardio em zona 2</li>
-  <li>Rucking</li>
-  <li>Slackline</li>
-</ul>
-</div>
-</main>
+<main class="painel" id="conteudo"></main>
+<script src="dados.js"></script>
+<script src="cenas.js"></script>
 <script src="pagina.js"></script>
 </body>
 </html>

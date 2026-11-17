@@ -10,45 +10,12 @@
 <link rel="stylesheet" href="transicoes.css">
 <link rel="stylesheet" href="pagina.css">
 </head>
-<body data-page="skumm">
-<div class="stage" aria-hidden="true"><canvas id="bg" width="728" height="408"></canvas><canvas id="motes" width="364" height="204"></canvas></div>
+<body data-cat="skumm">
+<div class="stage" aria-hidden="true"><canvas id="bg" width="320" height="180"></canvas></div>
 <nav id="nav" aria-label="Páginas"></nav>
-<main class="painel" lang="en">
-<canvas class="banner" id="banner" width="160" height="44" aria-hidden="true"></canvas>
-<div class="painel-in">
-<h1>Diary of Skumm</h1>
-<p class="intro">The travels of a troll rogue who walks alone through Azeroth.</p>
-
-<h2>Character sheet</h2>
-<dl class="ficha">
-  <dt>Name</dt><dd>Skumm</dd>
-  <dt>Race</dt><dd>Troll</dd>
-  <dt>Class</dt><dd>Rogue</dd>
-  <dt>Professions</dt><dd>Herbalism · Alchemy</dd>
-  <dt>Realm</dt><dd>World of Warcraft: Forever (Enhanced)</dd>
-  <dt>Style</dt><dd>Lone wolf</dd>
-  <dt>Level</dt><dd class="vazio">[level]</dd>
-</dl>
-
-<h2>Entries</h2>
-<article class="entrada">
-  <h3>Entry I — [title]</h3>
-  <div class="captura">[screenshot]</div>
-  <p class="vazio">[Write the first entry here: where Skumm went, what he found, what almost killed him.]</p>
-</article>
-<article class="entrada">
-  <h3>Entry II — [title]</h3>
-  <div class="captura">[screenshot]</div>
-  <p class="vazio">[...]</p>
-</article>
-
-<h2>Herbalist's satchel</h2>
-<ul class="lista">
-  <li class="vazio">[herb] — [where it grows]</li>
-  <li class="vazio">[potion] — [what it does]</li>
-</ul>
-</div>
-</main>
+<main class="painel" id="conteudo"></main>
+<script src="dados.js"></script>
+<script src="cenas.js"></script>
 <script src="pagina.js"></script>
 </body>
 </html>

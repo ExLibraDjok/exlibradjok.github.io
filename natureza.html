@@ -10,42 +10,12 @@
 <link rel="stylesheet" href="transicoes.css">
 <link rel="stylesheet" href="pagina.css">
 </head>
-<body data-page="natureza">
-<div class="stage" aria-hidden="true"><canvas id="bg" width="728" height="408"></canvas><canvas id="motes" width="364" height="204"></canvas></div>
+<body data-cat="natureza">
+<div class="stage" aria-hidden="true"><canvas id="bg" width="320" height="180"></canvas></div>
 <nav id="nav" aria-label="Páginas"></nav>
-<main class="painel">
-<canvas class="banner" id="banner" width="160" height="44" aria-hidden="true"></canvas>
-<div class="painel-in">
-<h1>Natureza</h1>
-<p class="intro">Fora do ecrã: árvores, caminhos e ar livre.</p>
-
-<h2>Voluntariado</h2>
-<p>Faço voluntariado numa associação ambiental, aqui no norte de Portugal.</p>
-<ul class="lista">
-  <li class="vazio">[ação] — [o que fizemos]</li>
-</ul>
-
-<h2>Caminhadas</h2>
-<p>Os dias de descanso do treino são dias de caminhar.</p>
-<div class="grelha">
-  <div class="cartao"><b>Trilho favorito</b><span class="vazio">[nome do trilho]</span></div>
-  <div class="cartao"><b>Próximo trilho</b><span class="vazio">[nome do trilho]</span></div>
-</div>
-
-<h2>Diário de campo</h2>
-<article class="entrada">
-  <h3>[data] — [local]</h3>
-  <p class="vazio">[O que vi: aves, árvores, cogumelos, o tempo que fazia...]</p>
-</article>
-
-<h2>Respirar</h2>
-<ul class="lista">
-  <li>Meditação ao ar livre</li>
-  <li>Exercícios de respiração</li>
-  <li>Diário estoico</li>
-</ul>
-</div>
-</main>
+<main class="painel" id="conteudo"></main>
+<script src="dados.js"></script>
+<script src="cenas.js"></script>
 <script src="pagina.js"></script>
 </body>
 </html>

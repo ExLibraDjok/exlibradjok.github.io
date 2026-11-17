@@ -10,39 +10,12 @@
 <link rel="stylesheet" href="transicoes.css">
 <link rel="stylesheet" href="pagina.css">
 </head>
-<body data-page="oficina">
-<div class="stage" aria-hidden="true"><canvas id="bg" width="728" height="408"></canvas><canvas id="motes" width="364" height="204"></canvas></div>
+<body data-cat="oficina">
+<div class="stage" aria-hidden="true"><canvas id="bg" width="320" height="180"></canvas></div>
 <nav id="nav" aria-label="Páginas"></nav>
-<main class="painel">
-<canvas class="banner" id="banner" width="160" height="44" aria-hidden="true"></canvas>
-<div class="painel-in">
-<h1>Oficina</h1>
-<p class="intro">Onde desmonto coisas para perceber como funcionam.</p>
-
-<h2>Projetos</h2>
-<div class="grelha">
-  <div class="cartao"><span class="estado curso">EM CURSO</span><b>Este site</b>Construído à mão e alojado no GitHub Pages.</div>
-  <div class="cartao"><span class="estado curso">EM CURSO</span><b>Smartwatch “GPS WATCH”</b>Engenharia inversa do protocolo Bluetooth de um relógio sem marca.</div>
-  <div class="cartao"><span class="estado curso">EM CURSO</span><b>Redes</b>A aprender redes, rumo à Network+ e à CCNA.</div>
-  <div class="cartao"><span class="estado ativo">ATIVO</span><b>Android sem Google</b>crDroid com MicroG.</div>
-  <div class="cartao"><span class="estado feito">APRENDIDO</span><b>Debian Linux</b>Terminal, apt, permissões e scripts.</div>
-  <div class="cartao"><span class="estado inicio">A COMEÇAR</span><b>Desenho</b>Fundamentos com Drawabox e Proko.</div>
-</div>
-
-<h2>Consolas</h2>
-<ul class="lista">
-  <li>Nintendo DSi e 3DS</li>
-  <li>Handhelds modificadas, com ROM hacks de Pokémon</li>
-</ul>
-
-<h2>Ferramentas da bancada</h2>
-<ul class="lista">
-  <li>Obsidian <small>notas e segundo cérebro</small></li>
-  <li>Terminal Linux</li>
-  <li>Midjourney <small>imagens para os projetos</small></li>
-</ul>
-</div>
-</main>
+<main class="painel" id="conteudo"></main>
+<script src="dados.js"></script>
+<script src="cenas.js"></script>
 <script src="pagina.js"></script>
 </body>
 </html>

@@ -10,46 +10,12 @@
 <link rel="stylesheet" href="transicoes.css">
 <link rel="stylesheet" href="pagina.css">
 </head>
-<body data-page="musica">
-<div class="stage" aria-hidden="true"><canvas id="bg" width="728" height="408"></canvas><canvas id="motes" width="364" height="204"></canvas></div>
+<body data-cat="musica">
+<div class="stage" aria-hidden="true"><canvas id="bg" width="320" height="180"></canvas></div>
 <nav id="nav" aria-label="Páginas"></nav>
-<main class="painel">
-<canvas class="banner" id="banner" width="160" height="44" aria-hidden="true"></canvas>
-<div class="painel-in">
-<h1>Música</h1>
-<p class="intro">Fuzz, deserto e paciência. Discos ouvidos do princípio ao fim, numa biblioteca offline curada com cuidado.</p>
-
-<h2>Pilares do deserto</h2>
-<div class="grelha">
-  <div class="cartao"><b>Kyuss</b><em>Palm Desert, Califórnia</em>Os pioneiros do desert rock. Riffs pesados e um gerador ligado no meio do deserto.</div>
-  <div class="cartao"><b>Yawning Man</b><em>Coachella Valley, Califórnia</em>Instrumental e ondulante. Uma das raízes das generator parties.</div>
-  <div class="cartao"><b>Elder</b><em>Massachusetts, EUA</em>Heavy psych progressivo: músicas longas que crescem devagar.</div>
-  <div class="cartao"><b>King Buffalo</b><em>Rochester, Nova Iorque</em>Trio psicadélico, hipnótico e espacial.</div>
-  <div class="cartao"><b>Naxatras</b><em>Tessalónica, Grécia</em>Psych com groove dos anos 70, quente e solarengo.</div>
-  <div class="cartao"><b>Mars Red Sky</b><em>Bordéus, França</em>Riffs enormes e vozes etéreas por cima.</div>
-</div>
-
-<h2>Em rotação</h2>
-<ul class="lista">
-  <li class="vazio">[álbum] — [artista]</li>
-  <li class="vazio">[álbum] — [artista]</li>
-  <li class="vazio">[álbum] — [artista]</li>
-</ul>
-
-<h2>Outras rotas</h2>
-<div class="grelha">
-  <div class="cartao"><b>Hip-hop</b><span class="vazio">[artistas favoritos]</span></div>
-  <div class="cartao"><b>Música brasileira</b><span class="vazio">[artistas favoritos]</span></div>
-</div>
-
-<h2>O equipamento</h2>
-<ul class="lista">
-  <li>Leitor HiBy R1, sem streaming</li>
-  <li>Biblioteca 100% offline, com discografias completas dos pilares</li>
-  <li>Uma lista curada de álbuns essenciais, sempre a crescer</li>
-</ul>
-</div>
-</main>
+<main class="painel" id="conteudo"></main>
+<script src="dados.js"></script>
+<script src="cenas.js"></script>
 <script src="pagina.js"></script>
 </body>
 </html>
