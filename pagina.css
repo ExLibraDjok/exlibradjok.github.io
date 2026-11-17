@@ -134,3 +134,26 @@ html.sem-vt .painel{animation:painel-entra .25s steps(5) both}
   .painel h1{font-size:14px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* grupos (secções com página própria) */
+.grupos{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.grupo{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--cream);min-height:104px;
+  background:linear-gradient(180deg,rgba(90,61,34,.55),rgba(51,34,15,.55));border:3px solid var(--ink);box-shadow:0 0 0 2px var(--bark),inset 0 2px 0 rgba(255,255,255,.06);
+  padding:12px 14px;font-size:19px;line-height:1.15;transition:transform .06s steps(2),box-shadow .06s steps(2)}
+.grupo b{font-family:var(--display);font-weight:400;font-size:10px;line-height:1.6;color:var(--gold)}
+.grupo .conta{margin-top:auto;font-style:normal;font-size:16px;color:var(--gold);opacity:.75}
+.grupo:hover,.grupo:focus-visible{transform:translateY(-2px);box-shadow:0 0 0 2px var(--gold)}
+.grupo:hover .conta{opacity:1}
+
+/* pesquisa */
+.filtro{display:block;margin:14px 0 4px}
+.filtro input{width:100%;font-family:var(--body);font-size:21px;color:var(--cream);background:#0b0805;border:3px solid var(--ink);
+  box-shadow:0 0 0 2px var(--bark);padding:6px 10px;outline:none}
+.filtro input:focus{box-shadow:0 0 0 2px var(--gold)}
+.filtro input::placeholder{color:rgba(251,235,200,.4)}
+.nada{opacity:.6}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+[hidden]{display:none!important}
+p.migalha a{color:var(--cream);text-decoration:none}
+p.migalha a:hover{color:var(--gold)}
+p.migalha span{opacity:.5;margin:0 4px}
