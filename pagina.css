@@ -16,7 +16,7 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--ink)}
-body{font-family:var(--body);color:var(--cream)}
+body{font-family:var(--body);color:var(--cream);font-variant-ligatures:none;font-feature-settings:"liga" 0,"clig" 0}
 a{color:var(--gold)}
 
 /* fundo: a mesma cena do monte, escurecida */
