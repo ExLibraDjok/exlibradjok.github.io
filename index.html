@@ -6,7 +6,7 @@
 <title>After Hours Compendium</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
 /* Layout: the hilltop scene fills the screen as one low-res canvas (364x204, scaled up with hard pixels), animated in place.
    A wooden signpost sidebar on the left holds the links; on phones it becomes a row of planks at the bottom. Single theme by choice. */
@@ -18,26 +18,26 @@
   --cream:#fbebc8;
   --gold:#f4c16a;
   --moss:#1e2b1a;
-  --display:"Pixelify Sans", "Courier New", monospace;
+  --display:"Press Start 2P", "Courier New", monospace;
   --body:"VT323", "Courier New", monospace;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--ink)}
 body{font-family:var(--body);color:var(--cream)}
-#bg,#scene{position:absolute;image-rendering:pixelated;image-rendering:crisp-edges;display:block}
-.stage{position:fixed;inset:0;overflow:hidden}
+#bg,#scene,#fx{position:absolute;image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+.stage{position:fixed;inset:0;overflow:hidden;filter:contrast(1.2) saturate(1.15)}
 
 /* sidebar */
 nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:flex;flex-direction:column;gap:14px;
   padding:16px 14px;background:rgba(20,15,11,.72);
   border:3px solid var(--ink);box-shadow:0 0 0 3px var(--bark),0 0 0 6px var(--ink),6px 8px 0 6px rgba(0,0,0,.35)}
-.brand{font-family:var(--display);font-weight:700;color:var(--gold);font-size:26px;line-height:1.05;margin:0;
+.brand{font-family:var(--display);font-weight:700;color:var(--gold);font-size:15px;line-height:1.5;margin:0;
   text-shadow:3px 3px 0 var(--ink);letter-spacing:.02em}
 .brand small{display:block;font-family:var(--body);font-weight:400;font-size:18px;color:var(--cream);opacity:.8;margin-top:6px;text-shadow:none;letter-spacing:0}
 .links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .plank{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:8px;width:200px;height:56px;
-  padding:0 10px 8px 34px;font-family:var(--display);font-weight:600;font-size:18px;color:var(--cream);
+  padding:0 10px 8px 34px;font-family:var(--display);font-weight:400;font-size:11px;color:var(--cream);
   text-shadow:2px 2px 0 var(--ink);background:url(img/plank.png) 0 0/200px 56px no-repeat;image-rendering:pixelated;
   transition:transform .08s steps(2)}
 .plank canvas{width:20px;height:20px;image-rendering:pixelated;flex:0 0 20px;filter:drop-shadow(2px 2px 0 #140f0b)}
@@ -51,13 +51,13 @@ nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:
   background:rgba(16,18,36,.9);padding:14px 18px 16px;font-size:24px;line-height:1.15;
   border:3px solid var(--ink);box-shadow:0 0 0 3px var(--gold),0 0 0 6px var(--ink);display:none;cursor:pointer}
 .dialog.on{display:block}
-.dialog b{font-family:var(--display);font-weight:600;color:var(--gold);font-size:18px;display:block;margin-bottom:4px}
+.dialog b{font-family:var(--display);font-weight:400;color:var(--gold);font-size:12px;line-height:1.6;display:block;margin-bottom:4px}
 .dialog i{font-style:normal;color:var(--gold);animation:blink 1s steps(2) infinite;float:right}
 @keyframes blink{50%{opacity:0}}
 
 @media (max-width:760px){
   nav{left:10px;right:10px;top:auto;bottom:10px;width:auto;padding:10px;gap:8px}
-  .brand{font-size:20px}.brand small{display:none}
+  .brand{font-size:12px}.brand small{display:none}
   .links{flex-direction:row;overflow-x:auto;gap:8px;padding:2px 4px 6px}
   .plank{flex:0 0 200px}
   .foot{display:none}
@@ -67,7 +67,7 @@ nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:
 </style>
 </head>
 <body>
-<div class="stage"><canvas id="bg" width="728" height="408" aria-hidden="true"></canvas><canvas id="scene" width="364" height="204" role="img" aria-label="Um rapaz de headphones a ler à sombra de uma árvore grande, no alto de um monte, com duas pegas num ramo e um vale com rio e cascata ao fundo"></canvas></div>
+<div class="stage"><canvas id="bg" width="728" height="408" aria-hidden="true"></canvas><canvas id="fx" width="728" height="408" aria-hidden="true"></canvas><canvas id="scene" width="364" height="204" role="img" aria-label="Um rapaz de headphones a ler à sombra de uma árvore grande, no alto de um monte, com duas pegas num ramo e um vale com rio e cascata ao fundo"></canvas></div>
 
 <nav aria-label="Páginas">
   <h1 class="brand">After Hours Compendium<small>um sítio meu, depois de horas</small></h1>
@@ -87,8 +87,8 @@ nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:
 <script>
 (function(){
   var W=364,H=204;
-  var cv=document.getElementById("scene"),ctx=cv.getContext("2d"),bg=document.getElementById("bg"),bctx=bg.getContext("2d");
-  ctx.imageSmoothingEnabled=false;
+  var cv=document.getElementById("scene"),ctx=cv.getContext("2d"),bg=document.getElementById("bg"),bctx=bg.getContext("2d"),fx=document.getElementById("fx"),fctx=fx.getContext("2d");
+  ctx.imageSmoothingEnabled=false;window.__sceneCtx=ctx;
   var still=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var img=new Image();
   img.src="img/scene.png";
@@ -101,11 +101,12 @@ nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:
     var focus=vw>760?0.40:0.40, anchor=vw>760?0.58:0.5;
     var left=Math.min(0,Math.max(vw-w,vw*anchor-focus*w));
     var top=Math.min(0,Math.max(vh-h,vh*0.62-0.72*h));
-    [cv,bg].forEach(function(e){e.style.width=w+"px";e.style.height=h+"px";e.style.left=left+"px";e.style.top=top+"px";});
+    [cv,bg,fx].forEach(function(e){e.style.width=w+"px";e.style.height=h+"px";e.style.left=left+"px";e.style.top=top+"px";});
   }
   fit();addEventListener("resize",fit);
 
-  function sprite(rows,x,y,col,a){
+  function sprite(rows,x,y,col,a,c2){
+    var ctx=c2||window.__sceneCtx;
     ctx.globalAlpha=a==null?1:a;ctx.fillStyle=col;
     for(var r=0;r<rows.length;r++)for(var c=0;c<rows[r].length;c++)if(rows[r][c]==="#")ctx.fillRect(Math.round(x)+c,Math.round(y)+r,1,1);
     ctx.globalAlpha=1;
@@ -124,7 +125,7 @@ nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:
 
   function draw(){
     ctx.globalCompositeOperation="source-over";
-    ctx.clearRect(0,0,W,H);
+    ctx.clearRect(0,0,W,H);fctx.clearRect(0,0,W*2,H*2);
 
     /* waterfall: light bands running down */
     for(var i=0;i<WF.length;i++){
@@ -157,8 +158,8 @@ nav{position:fixed;left:18px;top:18px;bottom:18px;width:234px;z-index:5;display:
     /* music notes from the headphones */
     notes=notes.filter(function(n){n.t++;n.y-=.12;n.x+=Math.sin(n.ph+n.t*.05)*.18+.03;
       var a=n.t<20?.5:n.t<140?.95:n.t<180?.6:.3;
-      sprite(NOTE[n.s],n.x+1,n.y+1,"#2a1d14",a*.6);
-      sprite(NOTE[n.s],n.x,n.y,n.t%60<30?"#fff1c4":"#ffd98a",a);
+      sprite(NOTE[n.s],n.x*2+1,n.y*2+1,"#2a1d14",a*.6,fctx);
+      sprite(NOTE[n.s],n.x*2,n.y*2,n.t%60<30?"#fff1c4":"#ffd98a",a,fctx);
       return n.t<210;});
   }
 
